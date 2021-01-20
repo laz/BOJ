@@ -5,8 +5,7 @@ using namespace std;
 int que[2000001];
 
 int main(){
-    ios_base::sync_with_stdio(false); 
-    cin.tie(NULL);
+    ios_base::sync_with_stdio(false); cin.tie(0);
     int c, n, head = 0, tail = 0;
     cin >> c;
     string op;
