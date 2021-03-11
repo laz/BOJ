@@ -1,50 +1,50 @@
-#include <cstdio>
-#include <vector>
+#include <iostream>
 #include <cstring>
 #include <queue>
 using namespace std;
 
-#define X first
-#define Y second
-int dx[4] = {1, 0, -1, 0};
-int dy[4] = {0, 1, 0, -1};
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {1, 0, -1, 0};
+
+int map[50][50], visited[50][50];
+int n, m;
+
+void bfs(int x, int y){
+    queue<pair<int, int> > q;
+    q.push({x, y});
+    visited[x][y] = true;
+    while(!q.empty()){
+        int cx = q.front().first, cy = q.front().second; q.pop();
+        for(int i = 0; i < 4; ++i){
+            int nx = cx + dx[i], ny = cy + dy[i];
+            if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+            if(visited[nx][ny] || !map[nx][ny]) continue;
+            q.push({nx, ny});
+            visited[nx][ny] = true;
+        }
+    }
+}
 
 int main(){
-    int t;
-    scanf("%d", &t);
+    ios::sync_with_stdio(0); cin.tie(0);
+    int t, k, a, b;
+    cin >> t;
     while(t--){
-        int n, m, k;
-        scanf("%d %d %d", &m, &n, &k);
-        int map[n][m];
-        int x, y;
         memset(map, 0, sizeof(map));
+        memset(visited, false, sizeof(visited));
+        cin >> m >> n >> k;
         for(int i = 0; i < k; ++i){
-            scanf("%d %d", &y, &x);
-            map[x][y] = 1;
+            cin >> a >> b;
+            map[b][a] = 1;
         }
-        bool visited[n][m];
-        memset(visited, 0, sizeof(visited));
-        queue<pair<int, int> > q;
         int cnt = 0;
         for(int i = 0; i < n; ++i){
             for(int j = 0; j < m; ++j){
                 if(!map[i][j] || visited[i][j]) continue;
                 cnt++;
-                q.push({i, j});
-                visited[i][j] = true;
-                while(!q.empty()){
-                    auto curr = q.front(); q.pop();
-                    for(int k = 0; k < 4; ++k){
-                        int x = curr.X + dx[k], y = curr.Y + dy[k];
-                        if(x < 0 || x >= n || y < 0 || y >= m) continue;
-                        if(!map[x][y] || visited[x][y]) continue;
-                        q.push({x, y});
-                        visited[x][y] = true;;
-                    }
-                }
+                bfs(i, j);
             }
         }
-        printf("%d\n", cnt);
-
+        cout << cnt << "\n";
     }
 }
