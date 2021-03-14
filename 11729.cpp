@@ -1,8 +1,9 @@
-#include <cstdio>
+#include <iostream>
+using namespace std;
 
 void moveN(int from, int to, int tmp, int n){
     if(n == 1){
-        printf("%d %d\n", from, to);
+        cout << from << " " << to << "\n";
         return ;
     }
     moveN(from, tmp, to, n-1);
@@ -11,10 +12,10 @@ void moveN(int from, int to, int tmp, int n){
 }
 
 int main(){
+    ios::sync_with_stdio(0); cin.tie(0);
     int n, rep = 1;
-    scanf("%d", &n);
+    cin >> n;
     for(int i = 0; i < n; ++i) rep *= 2;
-    printf("%d\n", rep-1);
+    cout << rep-1 << "\n";
     moveN(1, 3, 2, n);
-
 }
