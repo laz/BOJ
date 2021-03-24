@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
-int map[777][777];
-int bl[777][777], br[777][777];
+int map[751][751];
+int bl[751][751], br[751][751];
 
 int main(){
     ios::sync_with_stdio(0); cin.tie(0);
