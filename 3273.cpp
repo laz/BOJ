@@ -15,7 +15,6 @@ int main(){
     int s = 1, e = n, ans = 0;
     while(s < e){
         int t = arr[s] + arr[e];
-        cout << t <<endl;
         if(t == x) ans++;
 
         if(t <= x) s++;
