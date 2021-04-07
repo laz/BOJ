@@ -6,7 +6,7 @@ int cache[6][2], arr[3];
 
 int main(){
     ios::sync_with_stdio(0); cin.tie(0);
-    int n, a, b, c; cin >> n;
+    int n; cin >> n;
     for(int i = 0; i < 3; ++i){
         cin >> cache[i][0];
         cache[i+3][0] = cache[i][0];
