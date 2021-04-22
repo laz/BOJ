@@ -7,13 +7,13 @@ struct point{
     point(int a, int b, int c) {
         x = a; y = b; time = c;
     }
+    point() {};
 };
 
 int dx[4] = {1, 0, -1, 0};
 int dy[4] = {0, 1, 0, -1};
 
 queue<point> q;
-vector<point> water;
 char arr[50][50];
 int visited[50][50];
 int n, m;
@@ -21,26 +21,28 @@ int n, m;
 void input() {
     fastio;
     cin >> n >> m;
+    point src;
     for(int i = 0; i < n; ++i) {
         cin >> arr[i];
         for(int j = 0; j < m; ++j) {
-            if(arr[i][j] == 'S') {
-                visited[i][j] = 1;
-                q.push(point(i, j, 0));
+            if(arr[i][j] == 'S') src = point(i, j, 0);
+            else if(arr[i][j] == '*') {
+                visited[i][j] = -1;
+                q.push(point(i, j, -1));
             }
-            else if(arr[i][j] == '*') water.push_back((point(i, j, -1)));
         }
     }
+    visited[src.x][src.y] = true;
+    q.push(src);
 }
 
 void b() {
     while(!q.empty()) {
         point p = q.front(); q.pop();
-        if(p.time >= 0 && visited[p.x][p.y] == -1) continue;
         for(int i = 0; i < 4; ++i) {
             int nx = p.x + dx[i], ny = p.y + dy[i];
             if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-            if(arr[nx][ny] == 'X' || visited[nx][ny] < 0) continue;
+            if(arr[nx][ny] == 'X' || visited[nx][ny] == -1) continue;
 
             // 고슴도치
             if(p.time >= 0) {
@@ -58,15 +60,11 @@ void b() {
             }
         }
     }
+    
 }
 
 int main() {
     input();
-
-    for(auto w : water) {
-        visited[w.x][w.y] = -1;
-        q.push(w);
-    }
     b();
     cout << "KAKTUS";
 }
