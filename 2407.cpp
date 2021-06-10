@@ -30,17 +30,17 @@ string add(string a, string b) {
     return ret;
 }
 
-string bionimal(int nn, int r) {
+string binomial(int nn, int r) {
     if(r == 0 || nn == r) return "1";
     
     string& ret = cache[nn][r];
     if(ret != "") return ret;
 
-    return ret = add(bionimal(nn-1, r-1), bionimal(nn-1, r));
+    return ret = add(binomial(nn-1, r-1), binomial(nn-1, r));
 }
 
 int main() {
     input();
     
-    cout << bionimal(n, m);
+    cout << binomial(n, m);
 }
